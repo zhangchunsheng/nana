@@ -1,6 +1,7 @@
 #!/bin/bash
 cd love-you-ten-thousand 
 npm run build
+cd ..
 rm -rf webroot/HappyNewYear2024/*
 cp -r love-you-ten-thousand/dist/* webroot/HappyNewYear2024
 git add webroot
