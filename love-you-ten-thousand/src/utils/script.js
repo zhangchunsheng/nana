@@ -62,13 +62,13 @@ Gitee：https://gitee.com/nianbroken/Firework_Simulator
 			setSize,
 		} = window;
 		const sayToYou = [
-			'㊗',
+			'祝',
 			'娜娜',
 			'2024年',
 			'新年快乐',
 			'娜么美丽',
 			'张春生',
-			'㊗',
+			'祝',
 			'娜',
 			'娜',
 			'2',
