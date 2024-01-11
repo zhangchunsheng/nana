@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <title>春节快乐 - 2022年</title>
+    <link rel="stylesheet" type="text/css" href="fonts/fonts.css?t=1" />
+    <link rel="stylesheet" type="text/css" href="css/style.css?t=9" />
+    <link rel="stylesheet" type="text/css" href="css/mlist.css?t=0" />
+    <script type="text/javascript" src="js/script.js?t=1"></script>
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+
+    <!-- 烟花 -->
+    <!-- <link rel="stylesheet" type="text/css" href="fireworks/normalize.css" /> -->
+    <link rel="stylesheet" type="text/css" href="fireworks/demo.css">
+</head>
+
+<body>
+<div id="firework"></div> <!-- 烟花canvas容器 -->
+<div class="sound">
+    <!-- 背景音乐控制部分 -->
+
+    <audio src="firework.mp3" loop hidden id="fwk"></audio>
+    <!-- <button class="io on" id="bgm-io" onclick="bgm_io()" style="background-image: url('icons/music.svg')"></button> -->
+    <button class="io on" id="bgm-change-io" onclick="show(document.getElementById('music-list'))"
+            style="background-image: url('icons/music.svg')"></button>
+    <div id="music-list" style="display: none">
+        <h2>合奏</h2>
+        <table class="mtable" id="music-table-0">
+            <thead>
+            <tr>
+                <th>曲名</th>
+                <th>作曲家</th>
+                <th>乐团</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>春节序曲</td>
+                <td>李焕之</td>
+                <td>中国国家交响乐团</td>
+            </tr>
+            <tr>
+                <td>春节序曲</td>
+                <td>李焕之</td>
+                <td>中国人民解放军军乐团</td>
+            </tr>
+            <tr>
+                <td>新春乐</td>
+                <td>茅沅</td>
+                <td>中国国家交响乐团</td>
+            </tr>
+            <tr>
+                <td>拉德斯基进行曲<i>Radetzky March</i></td>
+                <td>[奥地利] 老约翰·施特劳斯<i>Johann Baptist Strauss</i></td>
+                <td>中国国家交响乐团</td>
+            </tr>
+            <tr>
+                <td>《卡门》序曲<i>Carmen Overture</i></td>
+                <td>[德] 乔治·比才<i>Georges Bizet</i></td>
+                <td>中国国家交响乐团</td>
+            </tr>
+            <tr>
+                <td>喜气洋洋 共贺新年</td>
+                <td>&nbsp;</td>
+                <td>上海爱乐民乐团</td>
+            </tr>
+            </tbody>
+        </table>
+        <h2>独奏</h2>
+        <table class="mtable" id="music-table-1">
+            <thead>
+            <tr>
+                <th>曲名</th>
+                <th>作曲家</th>
+                <th>乐器</th>
+                <th>演奏者</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>春节序曲</td>
+                <td>李焕之</td>
+                <td>钢琴</td>
+                <td>郎朗</td>
+            </tr>
+            <tr>
+                <td>新春乐</td>
+                <td>茅沅</td>
+                <td>小提琴</td>
+                <td>吕思清 盛原</td>
+            </tr>
+            </tbody>
+        </table>
+        <audio src="bgm/春节序曲-中国国家交响乐团.mp3" loop controls id="bgm"></audio>
+    </div>
+    <!-- <br /> -->
+    <button class="io" id="fw-io" onclick="fw_io()"
+            style="background-image: url('icons/sound-effect.svg'); background-position: 8px 8px;"></button>
+</div>
+
+<!-- <div id="tips"> 直接消失
+    <div id="full-screen">按下 F11 全屏浏览以获得更好的体验</div>
+</div> -->
+
+<div id="fu">
+    <div class="fu" id="fu1">福</div>
+    <div class="fu" id="fu2">福</div>
+</div>
+
+<div id="title">
+    <img src="images/2022h.png" alt="tiger" id="h" style="width:60%; top: -60%; left: 20%;" />
+    <img src="images/tora-ski-768x768.png" alt="tiger" id="g" style="width:80%; top: 10%; left: 10%;" />
+</div>
+
+<div id="chunlian">
+    <!-- 鼠去牛来辞旧岁；龙飞凤舞庆新春。 -->
+    <div class="dl" id="r1">金牛辞岁寒风尽</div>
+    <div class="dl" id="l1">玉虎迎春喜气来</div>
+    <div class="hp" id="h1">虎虎生威</div>
+</div>
+
+<div id="author">
+    <div class="author">Peter Zhang</div>
+</div>
+
+<div id="lanterns">
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+</div>
+
+<div id="bgitems">
+    <div id="l"></div>
+    <div id="r"></div>
+</div>
+
+<script>
+        // fullScreen()
+        // get163(396696, document.getElementById("bgm"));
+        // https://developer.chrome.com/blog/autoplay/
+        let promise = document.getElementById("bgm").play();
+        if (promise !== undefined) {
+          promise.then(_ => {
+            // Autoplay started!
+          }).catch(error => {
+            // Autoplay was prevented.
+            // Show a "Play" button so that user can start playback.
+          });
+        }
+        // getear0(36261, document.getElementById("fwk"));
+        // document.getElementById("fwk").play();
+        document.getElementById("fwk").volume = 0.5;
+        for (var elem of document.getElementById("music-table-0").children[1].children) {
+            elem.onclick = function () { change_bgm_0(this); }
+        }
+        for (var elem of document.getElementById("music-table-1").children[1].children) {
+            elem.onclick = function () { change_bgm_1(this); }
+        }
+        setInterval(function () {
+            var t = document.getElementById("title");
+            t.style.height = (t.clientWidth / 1979 * 1207) + "px";
+            var lt = document.getElementById("lanterns");
+            for (var lte of lt.children) {
+                lte.style.height = (lte.clientWidth / 751 * 1183) + "px";
+            }
+            // var dl = cl.children[0];
+            // console.log(dl.clientWidth);
+            // cl.style.height = (dl.clientWidth + 50) + "px";
+        }, 0)
+
+        // setTimeout(function () { $("#tips").fadeOut(50); }, 100);
+        setTimeout(function () { $("i").slideDown(); }, 0);
+        setTimeout(function () { $("#title #g").fadeIn(); }, 0);
+        setTimeout(function () { $("#title #h").fadeIn(); }, 100);
+        setTimeout(function () { $("#title #x").fadeIn(); }, 300);
+        setTimeout(function () { $("#title #c").fadeIn(); }, 500);
+        setTimeout(function () { $("#title #y").fadeIn(); }, 700);
+        setTimeout(function () { $("#fu .fu").slideDown(); }, 800);
+        setTimeout(function () { $("#chunlian #r1").slideDown(); }, 800);
+        setTimeout(function () { $("#chunlian #l1").slideDown(); }, 1000);
+        setTimeout(function () { $("#chunlian #h1").show(300); }, 1200);
+        setTimeout(function () { $("#author .author").show(300); }, 1200);
+    </script>
+
+<!-- 烟花 -->
+
+<script type="text/javascript" src="fireworks/jquery.fireworks.js"></script>
+<script type="text/javascript">
+        $('#firework').fireworks({
+            sound: false, // sound effect
+            opacity: 1,
+            width: '100vw',
+            height: '100wh'
+        });
+    </script>
+</body>
+
+</html>

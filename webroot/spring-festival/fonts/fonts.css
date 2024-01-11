@@ -1,0 +1,10 @@
+/* @font-face {
+    font-family: 'StXingKai';
+    src: url("StXingKai.ttf");
+} */
+
+@font-face {
+    font-family: 'YanTi';
+    src: url("YanTi.woff2");
+         /* url('YanTi.ttf')； */
+}
